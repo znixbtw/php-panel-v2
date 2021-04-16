@@ -59,7 +59,7 @@ Util::navbar();
 
 					<!--Under Maintenance // No Maintenance-->
 					<div class="col-12 clearfix">
-						<p class="float-right mb-0"><?php Util::display($cheat->getCheatData()->maintenance); ?></p> Maintenance
+						Maintenance: <p class="float-right mb-0"><?php Util::display($cheat->getCheatData()->maintenance); ?></p>
 					</div>
 					
 					<!--Detected // Undetected-->
