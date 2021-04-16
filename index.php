@@ -56,15 +56,15 @@ Util::navbar();
 			<div class="rounded p-3 mb-3">
 				<div class="h5 border-bottom border-secondary pb-1"><i class="fas fa-exclamation-circle"></i> Status</div>
 				<div class="row text-muted">
-
-					<!--Under Maintenance // No Maintenance-->
-					<div class="col-12 clearfix">
-						Maintenance: <p class="float-right mb-0"><?php Util::display($cheat->getCheatData()->maintenance); ?></p>
-					</div>
 					
 					<!--Detected // Undetected-->
 					<div class="col-12 clearfix">
 						Status: <p class="float-right mb-0"><?php Util::display($cheat->getCheatData()->status); ?></p>
+					</div>
+					
+					<!--Active Maintenance // No Maintenance-->
+					<div class="col-12 clearfix">
+						Maintenance: <p class="float-right mb-0"><?php Util::display($cheat->getCheatData()->maintenance); ?></p>
 					</div>
 					
 					<!--Cheat version-->
