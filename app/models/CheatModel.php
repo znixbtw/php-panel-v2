@@ -21,7 +21,7 @@ class Cheat extends Database {
 
 		
 		// Maintenance (changed from "-/UNDER" to "Under/No" for the status in Index.php)
-		$result->maintenance = ((int)$result->maintenance === 0) ? 'No' : 'Under';
+		$result->maintenance = ((int)$result->maintenance === 0) ? 'No' : 'Active';
 
 
 		return $result;
