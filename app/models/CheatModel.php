@@ -20,8 +20,8 @@ class Cheat extends Database {
 		$result->status = ((int)$result->status === 0) ? 'Undetected' : 'Detected';
 
 		
-		// Maintenance
-		$result->maintenance = ((int)$result->maintenance === 0) ? '-' : 'UNDER';
+		// Maintenance (changed from "-/UNDER" to "Yes/No" for the status in Index.php)
+		$result->maintenance = ((int)$result->maintenance === 0) ? 'No' : 'Yes';
 
 
 		return $result;
