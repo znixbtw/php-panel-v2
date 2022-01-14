@@ -16,22 +16,22 @@ Util::adminCheck();
 Util::head('Admin Panel');
 Util::navbar();
 
-// if post request 
+// if post request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-	if (isset($_POST["resetHWID"])) { 
+	if (isset($_POST["resetHWID"])) {
 		$rowUID = $_POST['resetHWID'];
-		$admin->resetHWID($rowUID); 
+		$admin->resetHWID($rowUID);
 	}
 
-	if (isset($_POST["setBanned"])) { 
+	if (isset($_POST["setBanned"])) {
 		$rowUID = $_POST['setBanned'];
-		$admin->setBanned($rowUID); 
+		$admin->setBanned($rowUID);
 	}
 
-	if (isset($_POST["setAdmin"])) { 
+	if (isset($_POST["setAdmin"])) {
 		$rowUID = $_POST['setAdmin'];
-		$admin->setAdmin($rowUID); 
+		$admin->setAdmin($rowUID);
 	}
 
 	header("location: users.php");
@@ -93,8 +93,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							</td>
 
 							<td>
-								<form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-								
+								<form method="POST" action="<?php Util::display($_SERVER['PHP_SELF']); ?>">
+
 									<button value="<?php Util::display($row->uid); ?>" name="resetHWID"  title="Reset HWID" data-toggle="tooltip" data-placement="top" class="btn btn-sm text-white" type="submit">
 										<i class="fas fa-microchip"></i>
 									</button>
@@ -124,6 +124,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 $(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();   
+  $('[data-toggle="tooltip"]').tooltip();
 });
 </script>

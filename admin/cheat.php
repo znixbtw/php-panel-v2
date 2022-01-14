@@ -16,21 +16,21 @@ Util::adminCheck();
 Util::head('Admin Panel');
 Util::navbar();
 
-// if post request 
+// if post request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 	if (isset($_POST["cheatStatus"])) {
-		$admin->setCheatStatus(); 
+		$admin->setCheatStatus();
 	}
 
 	if (isset($_POST["cheatMaint"])) {
-		$admin->setCheatMaint(); 
+		$admin->setCheatMaint();
 	}
 
 	if (isset($_POST["cheatVersion"])) {
 		$ver = floatval($_POST['version']);
-		$admin->setCheatVersion($ver); 
+		$admin->setCheatVersion($ver);
 	}
 
 	header("location: cheat.php");
@@ -92,29 +92,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<div class="col-12 mt-3">
 			<div class="rounded p-3 mb-3">
 
-				<form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-								
+				<form method="POST" action="<?php Util::display($_SERVER['PHP_SELF']); ?>">
+
 					<button name="cheatStatus" type="submit" class="btn btn-outline-primary btn-sm">
 						SET detected+-
 					</button>
-								
+
 					<button name="cheatMaint" type="submit" class="btn btn-outline-primary btn-sm">
 						SET maintenance+-
 					</button>
 
 				</form>
 
-				<form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+				<form method="POST" action="<?php Util::display($_SERVER['PHP_SELF']); ?>">
 					<div class="form-row mt-1">
     					<div class="col">
 							<input type="text" class="form-control form-control-sm" placeholder="Version" name="version" required>
 						</div>
-						
+
     					<div class="col">
 							<button class="btn btn-outline-primary btn-sm" name="cheatVersion" type="submit" value="submit">Update</button>
     					</div>
   					</div>
-					
+
 				</form>
 
 			</div>

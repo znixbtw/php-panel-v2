@@ -53,7 +53,7 @@ Util::navbar();
 
 					<h4 class="card-title text-center">Update Password</h4>
 
-					<form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+					<form method="POST" action="<?php Util::display($_SERVER['PHP_SELF']); ?>">
 
 						<div class="form-group">
 							<input type="password" class="form-control form-control-sm" placeholder="Current Password" name="currentPassword" required>
@@ -94,11 +94,11 @@ Util::navbar();
 
 									Sub:
 									<p class="float-right mb-0">
-										<?php 
-										if ($sub > 0) { 
-											Util::display($sub . ' days'); 
+										<?php
+										if ($sub > 0) {
+											Util::display($sub . ' days');
 										} else {
-											Util::display('0 days'); 
+											Util::display('0 days');
 										} ?>
 									</p>
 
@@ -116,7 +116,7 @@ Util::navbar();
 
 								<h4 class="card-title text-center">Activate Sub</h4>
 
-								<form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
+								<form method="POST" action="<?php Util::display($_SERVER['PHP_SELF']); ?>">
 
 									<div class="form-group">
 										<input type="password" class="form-control form-control-sm" placeholder="Subscription Code" name="subCode" required>

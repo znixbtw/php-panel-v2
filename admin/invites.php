@@ -16,12 +16,12 @@ Util::adminCheck();
 Util::head('Admin Panel');
 Util::navbar();
 
-// if post request 
+// if post request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 	if (isset($_POST["genInv"])) {
-		$admin->getInvCodeGen($username); 
+		$admin->getInvCodeGen($username);
 	}
 
 	header("location: invites.php");
@@ -37,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		<div class="col-12 mt-3">
 			<div class="rounded p-3 mb-3">
 
-				<form method="POST" action="<?php echo $_SERVER["PHP_SELF"]; ?>">
-								
+				<form method="POST" action="<?php Util::display($_SERVER['PHP_SELF']); ?>">
+
 					<button name="genInv" type="submit" class="btn btn-outline-primary btn-sm">
 						Gen Inv
 					</button>
