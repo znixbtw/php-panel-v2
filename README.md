@@ -1,8 +1,7 @@
-<h1 align="center">Web Panel W.I.P</h1>
-<p align="center">Web Panel for your CS:GO cheat.</p>
+<h1 align="center">:zap: User Management Panel</h1>
 
 > Contribution is greatly appriciated. <br />
-> Default login: `admin:admin` <br />
+> Default login: `admin`:`admin` <br />
 > Wanna talk? Join: https://discord.gg/9Ef5t2fMkk
 
 ---
