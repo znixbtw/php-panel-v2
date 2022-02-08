@@ -2,7 +2,7 @@
 
 > Contribution is greatly appriciated. <br />
 > Default login: `admin`:`admin` <br />
-> Wanna talk? Join: https://discord.gg/9Ef5t2fMkk
+> Join our discord community: https://discord.io/codingbay
 
 ---
 
