@@ -68,7 +68,9 @@
 ### Installation 
 * Change DB info in core/Database.php <br>
 * Import DB.sql file <br>
-* Change Site info in core/Config.php 
+* Change Site info in core/Config.php
+
+Installation Guide: https://www.youtube.com/watch?v=DwzP4ZSHwHw
 
 ---
 
