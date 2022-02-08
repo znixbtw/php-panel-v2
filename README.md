@@ -1,4 +1,9 @@
-<h1 align="center">:zap: User Management Panel</h1>
+<div align="center">
+	<img src="https://img.shields.io/github/stars/znixbtw/php-panel-v2?style=for-the-badge&logo=appveyor" />
+	<img src="https://img.shields.io/github/forks/znixbtw/php-panel-v2?style=for-the-badge&logo=appveyor" />
+	<h1>:zap: User Management Panel</h1>
+</div>
+
 
 > Contribution is greatly appriciated. <br />
 > Default login: `admin`:`admin` <br />
