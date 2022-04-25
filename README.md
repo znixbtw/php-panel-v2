@@ -4,7 +4,6 @@
 	<h1>:zap: User Management Panel</h1>
 </div>
 
-
 > Contribution is greatly appriciated. <br />
 > Default login: `admin`:`admin` <br />
 > Join our discord community: https://discord.io/codingbay

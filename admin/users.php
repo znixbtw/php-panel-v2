@@ -1,129 +1,126 @@
 <?php
 
 require_once '../app/require.php';
-require_once '../app/controllers/AdminController.php';
+require_once '../app/controllers/adminController.php';
 
-$user = new UserController;
-$admin = new AdminController;
+//Util::adminCheck();
 
-Session::init();
+$user = new userController;
+$admin = new adminController;
 
 $username = Session::get("username");
 
 $userList = $admin->getUserArray();
 
-Util::adminCheck();
 Util::head('Admin Panel');
 Util::navbar();
 
 // if post request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-	if (isset($_POST["resetHWID"])) {
-		$rowUID = $_POST['resetHWID'];
-		$admin->resetHWID($rowUID);
-	}
+    if (isset($_POST["resetHWID"])) {
+        $rowUID = $_POST['resetHWID'];
+        $admin->resetHWID($rowUID);
+    }
 
-	if (isset($_POST["setBanned"])) {
-		$rowUID = $_POST['setBanned'];
-		$admin->setBanned($rowUID);
-	}
+    if (isset($_POST["setBanned"])) {
+        $rowUID = $_POST['setBanned'];
+        $admin->setBanned($rowUID);
+    }
 
-	if (isset($_POST["setAdmin"])) {
-		$rowUID = $_POST['setAdmin'];
-		$admin->setAdmin($rowUID);
-	}
+    if (isset($_POST["setAdmin"])) {
+        $rowUID = $_POST['setAdmin'];
+        $admin->setAdmin($rowUID);
+    }
 
-	header("location: users.php");
+    header("location: users.php");
 
 }
 
 ?>
 
 <div class="container mt-2">
-	<div class="row">
+    <div class="row">
 
-		<?php Util::adminNavbar(); ?>
+        <?php Util::adminNavbar(); ?>
 
-		<div class="col-12 mt-3 mb-2">
-			<table class="rounded table">
+        <div class="col-12 mt-3 mb-2">
+            <table class="rounded table">
 
+                <thead>
+                <tr>
+                    <th scope="col" class="text-center">UID</th>
+                    <th scope="col">Username</th>
+                    <th scope="col" class="text-center">Admin</th>
+                    <th scope="col" class="text-center">Banned</th>
+                    <th scope="col">Actions</th>
+                </tr>
+                </thead>
 
-				<thead>
-					<tr>
+                <tbody>
 
-						<th scope="col" class="text-center">UID</th>
+                <!--Loop for number of rows-->
+                <?php foreach ($userList as $row) : ?>
+                    <tr>
 
-						<th scope="col">Username</th>
+                        <th scope="row" class="text-center"><?= Util::display($row->uid); ?></th>
 
-						<th scope="col" class="text-center">Admin</th>
+                        <td><?= Util::display($row->username); ?></td>
 
-						<th scope="col" class="text-center">Banned</th>
+                        <td class="text-center">
+                            <?php if ($row->admin == 1) : ?>
+                                <i class="fas fa-check-circle"></i>
+                            <?php else : ?>
+                                <i class="fas fa-times-circle"></i>
+                            <?php endif; ?>
+                        </td>
 
-						<th scope="col">Actions</th>
+                        <td class="text-center">
+                            <?php if ($row->banned == 1) : ?>
+                                <i class="fas fa-check-circle"></i>
+                            <?php else : ?>
+                                <i class="fas fa-times-circle"></i>
+                            <?php endif; ?>
+                        </td>
 
-					</tr>
-				</thead>
+                        <td>
+                            <form method="POST" action="<?= Util::display($_SERVER['PHP_SELF']); ?>">
 
+                                <button value="<?= Util::display($row->uid); ?>" name="resetHWID" title="Reset HWID"
+                                        data-toggle="tooltip" data-placement="top" class="btn btn-sm text-white"
+                                        type="submit">
+                                    <i class="fas fa-microchip"></i>
+                                </button>
 
-				<tbody>
+                                <button value="<?= Util::display($row->uid); ?>" name="setBanned"
+                                        title="Ban/unban user" data-toggle="tooltip" data-placement="top"
+                                        class="btn btn-sm text-white" type="submit">
+                                    <i class="fas fa-user-slash"></i>
+                                </button>
 
-					<!--Loop for number of rows-->
-					<?php foreach ($userList as $row) : ?>
-						<tr>
+                                <button value="<?= Util::display($row->uid); ?>" name="setAdmin"
+                                        title="Set admin/non admin" data-toggle="tooltip" data-placement="top"
+                                        class="btn btn-sm text-white" type="submit">
+                                    <i class="fas fa-crown"></i>
+                                </button>
 
-							<th scope="row" class="text-center"><?php Util::display($row->uid); ?></th>
+                            </form>
+                        </td>
 
-							<td><?php Util::display($row->username); ?></td>
+                    </tr>
+                <?php endforeach; ?>
 
-							<td class="text-center">
-								<?php if ($row->admin == 1) : ?>
-									<i class="fas fa-check-circle"></i>
-								<?php else : ?>
-									<i class="fas fa-times-circle"></i>
-								<?php endif; ?>
-							</td>
+                </tbody>
 
-							<td class="text-center">
-								<?php if ($row->banned == 1) : ?>
-									<i class="fas fa-check-circle"></i>
-								<?php else : ?>
-									<i class="fas fa-times-circle"></i>
-								<?php endif; ?>
-							</td>
-
-							<td>
-								<form method="POST" action="<?php Util::display($_SERVER['PHP_SELF']); ?>">
-
-									<button value="<?php Util::display($row->uid); ?>" name="resetHWID"  title="Reset HWID" data-toggle="tooltip" data-placement="top" class="btn btn-sm text-white" type="submit">
-										<i class="fas fa-microchip"></i>
-									</button>
-
-									<button value="<?php Util::display($row->uid); ?>" name="setBanned"  title="Ban/unban user" data-toggle="tooltip" data-placement="top" class="btn btn-sm text-white" type="submit">
-										<i class="fas fa-user-slash"></i>
-									</button>
-
-									<button value="<?php Util::display($row->uid); ?>" name="setAdmin"  title="Set admin/non admin" data-toggle="tooltip" data-placement="top" class="btn btn-sm text-white" type="submit">
-										<i class="fas fa-crown"></i>
-									</button>
-
-								</form>
-							</td>
-
-						</tr>
-					<?php endforeach; ?>
-
-				</tbody>
-
-			</table>
-		</div>
-	</div>
+            </table>
+        </div>
+    </div>
 
 </div>
 <?php Util::footer(); ?>
 
 <script>
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-});
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
 </script>
