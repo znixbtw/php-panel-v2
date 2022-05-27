@@ -2,7 +2,7 @@
 include './app/require.php';
 include './app/controllers/authController.php';
 
-Util::userCheck();
+Util::isUser();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $response = (new authController())->login($_POST);
@@ -29,7 +29,7 @@ Util::navbar();
                     <div class="card-body">
                         <h4 class="card-title text-center">Login</h4>
 
-                        <form method="POST" action="<?= Util::display($_SERVER['PHP_SELF']); ?>">
+                        <form method="POST">
 
                             <div class="form-group">
                                 <input type="text" class="form-control form-control-sm" placeholder="Username"

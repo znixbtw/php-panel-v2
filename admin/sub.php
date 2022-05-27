@@ -2,13 +2,9 @@
 require_once '../app/require.php';
 require_once '../app/controllers/adminController.php';
 
-$user = new userController;
+Util::isAdmin();
+
 $admin = new adminController;
-
-Util::adminCheck();
-
-$username = Session::get("username");
-
 $subList = $admin->getSubCodeArray();
 
 Util::head('Admin Panel');
@@ -16,13 +12,10 @@ Util::navbar();
 
 // if post request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
     if (isset($_POST["genSub"])) {
-        $admin->getSubCodeGen($username);
+        $admin->getSubCodeGen($user['username']);
     }
-
     header("location: sub.php");
-
 }
 ?>
 

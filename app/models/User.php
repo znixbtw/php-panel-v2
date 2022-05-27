@@ -1,45 +1,11 @@
 <?php
+defined('BASE_PATH') or exit('No direct script access allowed');
 
-require_once SITE_ROOT.'/app/core/Database.php';
+require_once __DIR__.'/../core/Database.php';
 
 class User extends Database
 {
-    // Check if username exists
-    protected function usernameCheck($username): bool
-    {
-        $this->prepare('SELECT * FROM `users` WHERE `username` = ?');
-        $this->statement->execute([$username]);
-        return $this->statement->rowCount() > 0;
-    }
-
-    // Check if invite code is valid
-    protected function invCodeCheck($invCode): bool
-    {
-        $this->prepare('SELECT * FROM `invites` WHERE `code` = ?');
-        $this->statement->execute([$invCode]);
-        return $this->statement->rowCount() > 0;
-    }
-
-    // Check if sub code is valid
-    protected function subCodeCheck($subCode): bool
-    {
-        $this->prepare('SELECT * FROM `subscription` WHERE `code` = ?');
-        $this->statement->execute([$subCode]);
-        return $this->statement->rowCount() > 0;
-    }
-
-    // Login - Sends data to DB
-    protected function loginUser($username, $password): bool|object
-    {
-        // Get user by username
-        $this->prepare('SELECT * FROM `users` WHERE `username` = ?');
-        $this->statement->execute([$username]);
-        $row = $this->statement->fetch();
-        // If username is correct
-        return $row && password_verify($password, $row->password) ? $row : false;
-    }
-
-    protected function registerUser($username, $hashedPassword, $invCode): bool
+    public function register($username, $hashedPassword, $invCode): bool
     {
         // Get username of the person who invited
         $this->prepare('SELECT `createdBy` FROM `invites` WHERE `code` = ?');
@@ -59,46 +25,57 @@ class User extends Database
         }
     }
 
-    // Change user password
-    protected function changePassword($currentPassword, $hashedPassword, $username): bool
+    public function login($username, $password): bool|object
     {
         // Get user by username
-        $this->prepare('SELECT * FROM `users` WHERE `username` = ?');
+        $row = $this->getByUsername($username);
+        // If username is correct
+        return $row && password_verify($password, $row->password) ? $row : false;
+    }
+
+    public function getByUsername($username): bool|stdClass
+    {
+        $this->prepare('SELECT * FROM `users` WHERE `username` = ? LIMIT 1');
         $this->statement->execute([$username]);
-        $row = $this->statement->fetch();
+        return $this->statement->fetch();
+    }
+
+    public function getCount()
+    {
+        $this->prepare('SELECT `uid` FROM `users`');
+        $this->statement->execute();
+        return $this->statement->rowCount();
+    }
+
+    public function getNew()
+    {
+        $this->prepare('SELECT `username` FROM `users` ORDER BY `uid` DESC LIMIT 1');
+        $this->statement->execute();
+        $result = $this->statement->fetch();
+        return $result->username;
+    }
+
+    public function updatePassword($currentPassword, $hashedPassword, $username): string
+    {
+        // Get user by username
+        $row = $this->getUserByUsername($username);
         // Fetch current password from database
-        $currentHashedPassword = $row->password;
-        if (password_verify($currentPassword, $currentHashedPassword)) {
+        if (password_verify($currentPassword, $row->password)) {
             $this->prepare('UPDATE `users` SET `password` = ? WHERE `username` = ?');
             $this->statement->execute([$hashedPassword, $username]);
-            return true;
+            return 'Password changed successfully.';
         } else {
-            return false;
+            return 'Failed to change password.';
         }
     }
 
-    protected function subscription($subCode, $username): string
+    public function addSubscription($subCode, $username, $duration): bool
     {
-        $sub = $this->subActiveCheck($username);
-        if ($sub > 0) {
-            return 'You already have an active subscription!';
-        }
-        $date = new DateTime(); // Get current date
-        $date->add(new DateInterval('P32D')); // Adds 32 days
-        $subTime = $date->format('Y-m-d'); // Format Year-Month-Day
         $this->prepare('UPDATE `users` SET `sub` = ? WHERE `username` = ?');
-        if ($this->statement->execute([$subTime, $username])) {
-            // Delete the sub code
-            $this->prepare('DELETE FROM `subscription` WHERE `code` = ?');
-            $this->statement->execute([$subCode]);
-            return 'Your subscription is now active!';
-        } else {
-            return 'Something went wrong';
-        }
-
+        return (bool) $this->statement->execute([$duration, $username]);
     }
 
-    protected function subActiveCheck($username)
+    public function getSubscription($username): int
     {
         $date = new DateTime(); // Get current date
         $currentDate = $date->format('Y-m-d'); // Format Year-Month-Day
@@ -112,36 +89,17 @@ class User extends Database
         return intval($diff->format("%R%a"));
     }
 
-    // Get number of users
-    protected function userCount()
-    {
-        $this->prepare('SELECT * FROM `users`');
-        $this->statement->execute();
-        return $this->statement->rowCount();
-    }
-
-    // Get number of banned users
-    protected function bannedUserCount()
+    public function getCountBanned()
     {
         $this->prepare('SELECT * FROM `users` WHERE `banned` =  1');
         $this->statement->execute();
         return $this->statement->rowCount();
     }
 
-    // Get number of users with sub
-    protected function activeUserCount()
+    public function getCountActive()
     {
         $this->prepare('SELECT * FROM `users` WHERE `sub` > CURRENT_DATE()');
         $this->statement->execute();
         return $this->statement->rowCount();
-    }
-
-    // Get name of the latest registered user
-    protected function newUser()
-    {
-        $this->prepare('SELECT `username` FROM `users` WHERE `uid` = (SELECT MAX(`uid`) FROM `users`)');
-        $this->statement->execute();
-        $result = $this->statement->fetch();
-        return $result->username;
     }
 }

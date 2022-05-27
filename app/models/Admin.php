@@ -1,51 +1,50 @@
 <?php
-require_once SITE_ROOT.'/app/core/Database.php';
+defined('BASE_PATH') or exit('No direct script access allowed');
+
+require_once __DIR__.'/../core/Database.php';
 
 class Admin extends Database
 {
-
-    protected function UserArray()
+    public function userArray()
     {
         $this->prepare('SELECT * FROM `users` ORDER BY uid ASC');
         $this->statement->execute();
         return $this->statement->fetchAll();
     }
 
-    protected function invCodeArray()
+    public function invCodeArray()
     {
         $this->prepare('SELECT * FROM `invites`');
         $this->statement->execute();
         return $this->statement->fetchAll();
     }
 
-    protected function invCodeGen($code, $createdBy)
+    public function invCodeGen($code, $createdBy)
     {
-
         $this->prepare('INSERT INTO `invites` (`code`, `createdBy`) VALUES (?, ?)');
         $this->statement->execute([$code, $createdBy]);
-
     }
 
-    protected function subCodeArray()
+    public function subCodeArray()
     {
         $this->prepare('SELECT * FROM `subscription`');
         $this->statement->execute();
         return $this->statement->fetchAll();
     }
 
-    protected function subCodeGen($code, $createdBy)
+    public function subCodeGen($code, $createdBy)
     {
         $this->prepare('INSERT INTO `subscription` (`code`, `createdBy`) VALUES (?, ?)');
         $this->statement->execute([$code, $createdBy]);
     }
 
-    protected function HWID($uid)
+    public function HWID($uid)
     {
         $this->prepare('UPDATE `users` SET `hwid` = NULL WHERE `uid` = ?');
         $this->statement->execute([$uid]);
     }
 
-    protected function banned($uid)
+    public function banned($uid)
     {
         $this->prepare('SELECT `banned` FROM `users` WHERE `uid` = ?');
         $this->statement->execute([$uid]);
@@ -59,7 +58,7 @@ class Admin extends Database
     }
 
     // Set user admin / non admin
-    protected function administrator($uid)
+    public function administrator($uid)
     {
         $this->prepare('SELECT `admin` FROM `users` WHERE `uid` = ?');
         $this->statement->execute([$uid]);
@@ -73,7 +72,7 @@ class Admin extends Database
     }
 
     //
-    protected function cheatStatus()
+    public function cheatStatus()
     {
         $this->prepare('SELECT `status` FROM `cheat`');
         $this->statement->execute();
@@ -87,7 +86,7 @@ class Admin extends Database
     }
 
     //
-    protected function cheatMaint()
+    public function cheatMaint()
     {
         $this->prepare('SELECT `maintenance` FROM `cheat`');
         $this->statement->execute();
@@ -101,7 +100,7 @@ class Admin extends Database
     }
 
     //
-    protected function cheatVersion($ver)
+    public function cheatVersion($ver)
     {
         $this->prepare('UPDATE `cheat` SET `version` = ?');
         $this->statement->execute([$ver]);

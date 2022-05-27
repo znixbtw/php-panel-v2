@@ -2,8 +2,7 @@
 include './app/require.php';
 include './app/controllers/authController.php';
 
-Session::init();
-Util::userCheck();
+Util::isUser();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $response = (new authController())->register($_POST);

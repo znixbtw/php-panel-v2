@@ -1,14 +1,15 @@
 <?php
+defined('BASE_PATH') or exit('No direct script access allowed');
 
 class Session
 {
 
-    public static function init()
+    public static function init(): void
     {
         session_start();
     }
 
-    public static function get($key)
+    public static function get(string $key)
     {
         return (isset($_SESSION[$key])) ? $_SESSION[$key] : false;
     }
@@ -25,7 +26,7 @@ class Session
         Session::set("createdAt", $user->createdAt);
     }
 
-    public static function set($key, $val)
+    public static function set(string $key, mixed $val): void
     {
         $_SESSION[$key] = $val;
     }

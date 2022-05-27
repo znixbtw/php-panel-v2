@@ -1,10 +1,7 @@
 <?php
+defined('BASE_PATH') or exit('No direct script access allowed');
 
-// Extends to class Database
-// Only Protected methods
-// Only interats with 'cheat' table
-
-require_once SITE_ROOT.'/app/core/Database.php';
+require_once __DIR__.'/../core/Database.php';
 
 class Cheat extends Database
 {

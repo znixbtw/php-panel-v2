@@ -26,6 +26,6 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= (BASE_PATH); ?>assets/css/custom.css"/>
 
-    <title><?= "{$title} &ndash; ".SITE_NAME; ?></title>
+    <title><?= "${title} &ndash; ".SITE_NAME; ?></title>
 </head>
 <body>

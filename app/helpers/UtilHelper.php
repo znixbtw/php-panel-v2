@@ -1,4 +1,5 @@
 <?php
+defined('BASE_PATH') or exit('No direct script access allowed');
 
 class Util
 {
@@ -40,7 +41,7 @@ class Util
     }
 
     // Check if user is a valid user
-    public static function userCheck(): void
+    public static function isUser(): void
     {
         // If user is logged in
         if (!Session::get('login')) {
@@ -53,12 +54,12 @@ class Util
 
     public static function redirect(string $location): void
     {
-        header("location: ${location}");
+        header("location: ${BASE_PATH}.${location}");
         exit;
     }
 
     // Check if user is banned
-    public static function banCheck(): void
+    public static function isBanned(): void
     {
         // If user is banned
         if (Session::get('banned')) {
@@ -70,40 +71,10 @@ class Util
     }
 
     // Check is user is admin
-    public static function adminCheck(): void
+    public static function isAdmin(): void
     {
         if (!Session::get('admin')) {
             Util::redirect(__DIR__.'/../index.php');
         }
     }
-
-    public static function validateUsername(string $username): string|bool
-    {
-        $usernameValidation = "/^[a-zA-Z0-9]*$/";
-        if (empty($username)) {
-            $error = "Please enter a username.";
-        } elseif (strlen($username) < 3) {
-            $error = "Username is too short.";
-        } elseif (strlen($username) > 14) {
-            $error = "Username is too long.";
-        } elseif (!preg_match($usernameValidation, $username)) {
-            $error = "Username must only contain alphanumerical!";
-        } else {
-            $error = true;
-        }
-        return $error;
-    }
-
-    public static function validatePassword(string $password): string|bool
-    {
-        if (empty($password)) {
-            $error = "Please enter a password.";
-        } elseif (strlen($password) < 4) {
-            $error = "Password is too short.";
-        } else {
-            $error = true;
-        }
-        return $error;
-    }
-
 }

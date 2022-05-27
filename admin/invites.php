@@ -2,21 +2,18 @@
 
 require_once '../app/require.php';
 require_once '../app/controllers/adminController.php';
+require_once '../app/controllers/userController.php';
 
-$user = new userController;
+Util::isAdmin();
+
 $admin = new adminController;
-
-Util::adminCheck();
-
-$username = Session::get("username");
-
 $invList = $admin->getInvCodeArray();
 
 Util::head('Admin Panel');
 Util::navbar();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["genInv"])) {
-    $admin->getInvCodeGen($username);
+    $admin->getInvCodeGen($user['username']);
     header("location: invites.php");
 }
 ?>

@@ -4,13 +4,10 @@ require_once '../app/require.php';
 require_once '../app/controllers/adminController.php';
 require_once '../app/controllers/cheatController.php';
 
-$user = new userController;
+Util::isAdmin();
+
 $cheat = new cheatController;
 $admin = new adminController;
-
-Util::adminCheck();
-
-$username = Session::get("username");
 
 Util::head('Admin Panel');
 Util::navbar();

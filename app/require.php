@@ -9,6 +9,6 @@ ini_set('session.cookie_lifetime', 0);
 require_once 'core/Config.php';
 require_once 'helpers/UtilHelper.php';
 require_once 'helpers/SessionHelper.php';
-require_once 'controllers/userController.php';
 
 Session::init();
+$user = $_SESSION;

@@ -1,30 +1,26 @@
 <?php
 
 require_once './app/require.php';
+require_once './app/controllers/userController.php';
 
-Util::userCheck();
-Util::banCheck();
+Util::isUser();
+Util::isBanned();
 
-$user = new userController;
+$userController = new userController;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_POST["updatePassword"])) {
-        $error = $user->updateUserPass($_POST);
+        $error = $userController->updatePassword($_POST);
     }
 
-    if (isset($_POST["activateSub"])) {
-        $error = $user->activateSub($_POST);
+    if (isset($_POST["addSubscription"])) {
+        $error = $userController->addSubscription($_POST);
     }
 }
 
-$uid = Session::get("uid");
-$username = Session::get("username");
-$admin = Session::get("admin");
-
-$sub = $user->getSubStatus();
-
-Util::head($username);
+$sub = $userController->getSubscription();
+Util::head($user['username']);
 Util::navbar();
 
 ?>
@@ -49,7 +45,7 @@ Util::navbar();
 
                         <h4 class="card-title text-center">Update Password</h4>
 
-                        <form method="POST" action="<?= Util::display($_SERVER['PHP_SELF']); ?>">
+                        <form method="POST">
 
                             <div class="form-group">
                                 <input type="password" class="form-control form-control-sm"
@@ -82,14 +78,14 @@ Util::navbar();
                     <div class="col-12 mb-4">
                         <div class="card">
                             <div class="card-body">
-                                <div class="h5 border-bottom border-secondary pb-1"><?= Util::display($username); ?></div>
+                                <div class="h5 border-bottom border-secondary pb-1"><?= Util::display($user['username']); ?></div>
                                 <div class="row">
                                     <div class="col-12 clearfix">
-                                        UID: <p class="float-right mb-0"><?= Util::display($uid); ?></p>
+                                        UID: <p class="float-right mb-0"><?= Util::display($user['uid']); ?></p>
                                     </div>
                                     <div class="col-12 clearfix">
                                         Sub:
-                                        <p class="float-right mb-0"><?= Util::display(($sub > 0) ? "${$sub} days" : '0 days') ?></p>
+                                        <p class="float-right mb-0"><?= Util::display(($sub > 0) ? "${sub} days" : '0 days') ?></p>
                                     </div>
                                 </div>
                             </div>
@@ -100,17 +96,16 @@ Util::navbar();
                         <div class="col-12 mb-4">
                             <div class="card">
                                 <div class="card-body">
-
                                     <h4 class="card-title text-center">Activate Sub</h4>
 
-                                    <form method="POST" action="<?= Util::display($_SERVER['PHP_SELF']); ?>">
+                                    <form method="POST">
 
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-sm"
+                                            <input type="text" class="form-control form-control-sm"
                                                    placeholder="Subscription Code" name="subCode" required>
                                         </div>
 
-                                        <button class="btn btn-outline-primary btn-block" name="activateSub"
+                                        <button class="btn btn-outline-primary btn-block" name="addSubscription"
                                                 type="submit" value="submit">Activate Sub
                                         </button>
 

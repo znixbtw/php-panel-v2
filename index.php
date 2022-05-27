@@ -2,16 +2,19 @@
 
 require_once './app/require.php';
 require_once './app/controllers/cheatController.php';
+require_once './app/controllers/userController.php';
 
-Util::userCheck();
-Util::banCheck();
+Util::isUser();
+Util::isBanned();
 
-$user = new userController;
-$cheat = new cheatController;
+$userController = new userController;
+$cheatData = (new cheatController)->getCheatData();
 
-$username = Session::get("username");
+$userCount = $userController->getUserCount();
+$newestUser = $userController->getNewUser();
+$hasSub = $userController->getSubscription() > 0;
 
-Util::head($username);
+Util::head($user['username']);
 Util::navbar();
 
 ?>
@@ -23,7 +26,8 @@ Util::navbar();
         <!--Welcome message-->
         <div class="col-12 mt-3 mb-2">
             <div class="alert alert-primary" role="alert">
-                Welcome back, <a href="/profile.php"><b><?= Util::display($username) ?></b></a>.
+                Welcome back,
+                <a href="<?= (BASE_PATH); ?>profile.php"><b><?= Util::display($user['username']) ?></b></a>.
             </div>
         </div>
 
@@ -35,12 +39,12 @@ Util::navbar();
 
                     <!--Total Users-->
                     <div class="col-12 clearfix">
-                        Users: <p class="float-right mb-0"><?= Util::display($user->getUserCount()); ?></p>
+                        Users: <p class="float-right mb-0"><?= Util::display($userCount); ?></p>
                     </div>
 
                     <!--Latest User-->
                     <div class="col-12 clearfix">
-                        Latest User: <p class="float-right mb-0"><?= Util::display($user->getNewUser()); ?></p>
+                        Latest User: <p class="float-right mb-0"><?= Util::display($newestUser); ?></p>
                     </div>
 
                 </div>
@@ -56,17 +60,16 @@ Util::navbar();
 
                     <!--Detected // Undetected-->
                     <div class="col-12 clearfix">
-                        Status: <p class="float-right mb-0"><?= Util::display($cheat->getCheatData()->status); ?></p>
+                        Status: <p class="float-right mb-0"><?= Util::display($cheatData->status); ?></p>
                     </div>
 
                     <!--Cheat version-->
                     <div class="col-12 clearfix">
-                        Version: <p
-                                class="float-right mb-0"><?= Util::display($cheat->getCheatData()->version); ?></p>
+                        Version: <p class="float-right mb-0"><?= Util::display($cheatData->version); ?></p>
                     </div>
 
                     <!-- Check if user has a sub -->
-                    <?php if ($user->getSubStatus() > 0) : ?>
+                    <?php if ($hasSub) : ?>
                         <div class="col-12 text-center pt-1">
                             <div class="border-top border-secondary pt-1">
 

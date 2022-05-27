@@ -1,13 +1,11 @@
 <?php
 require_once '../app/require.php';
 require_once '../app/controllers/adminController.php';
+require_once '../app/controllers/userController.php';
 
-Util::adminCheck();
+Util::isAdmin();
 
-$user = new userController;
-$admin = new adminController;
-
-$username = Session::get("username");
+$userController = new userController;
 
 Util::head('Admin Panel');
 Util::navbar();
@@ -27,7 +25,7 @@ Util::navbar();
                             <h3><i class="fas fa-users fa-2x"></i></h3>
                         </div>
                         <div class="col-6">
-                            <h3 class="text-center"><?= Util::display($user->getUserCount()); ?></h3>
+                            <h3 class="text-center"><?= Util::display($userController->getCount()); ?></h3>
                             <span class="small text-muted text-uppercase">total users</span>
                         </div>
                     </div>
@@ -42,7 +40,7 @@ Util::navbar();
                             <h3><i class="fas fa-user fa-2x"></i></h3>
                         </div>
                         <div class="col-6">
-                            <h3 class="text-center text-truncate"><?= Util::display($user->getNewUser()); ?></h3>
+                            <h3 class="text-center text-truncate"><?= Util::display($userController->getNew()); ?></h3>
                             <span class="small text-muted text-uppercase">latest user</span>
                         </div>
                     </div>
@@ -57,7 +55,7 @@ Util::navbar();
                             <h3><i class="fas fa-user-slash fa-2x"></i></h3>
                         </div>
                         <div class="col-6">
-                            <h3 class="text-center"><?= Util::display($user->getBannedUserCount()); ?></h3>
+                            <h3 class="text-center"><?= Util::display($userController->getCountBanned()); ?></h3>
                             <span class="small text-muted text-uppercase">banned users</span>
                         </div>
                     </div>
@@ -72,7 +70,7 @@ Util::navbar();
                             <h3><i class="fas fa-user-clock fa-2x"></i></h3>
                         </div>
                         <div class="col-6">
-                            <h3 class="text-center"><?= Util::display($user->getActiveUserCount()); ?></h3>
+                            <h3 class="text-center"><?= Util::display($userController->getCountActive()); ?></h3>
                             <span class="small text-muted text-uppercase">active sub</span>
                         </div>
                     </div>

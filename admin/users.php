@@ -2,14 +2,11 @@
 
 require_once '../app/require.php';
 require_once '../app/controllers/adminController.php';
+require_once '../app/controllers/userController.php';
 
-//Util::adminCheck();
+Util::isAdmin();
 
-$user = new userController;
 $admin = new adminController;
-
-$username = Session::get("username");
-
 $userList = $admin->getUserArray();
 
 Util::head('Admin Panel');

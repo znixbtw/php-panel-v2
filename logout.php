@@ -1,7 +1,8 @@
 <?php
 
 include './app/require.php';
+include './app/controllers/authController.php';
 
-Util::userCheck();
+Util::isUser();
 (new authController())->logout();
-Util::redirect(BASE_PATH.'login.php');
+Util::redirect('/login.php');
