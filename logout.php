@@ -1,12 +1,8 @@
 <?php
 
-include 'app/require.php';
+include './app/require.php';
+include './app/controllers/authController.php';
 
-Session::init();
-
-if (!Session::isLogged()) { Util::redirect('/login.php'); }
-
-$user = new UserController;
-$user->logoutUser();
-
+Util::isUser();
+(new authController())->logout();
 Util::redirect('/login.php');
