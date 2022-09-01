@@ -10,8 +10,8 @@ Util::isBanned();
 $userController = new userController;
 $cheatData = (new cheatController)->getCheatData();
 
-$userCount = $userController->getUserCount();
-$newestUser = $userController->getNewUser();
+$userCount = $userController->getCount();
+$newestUser = $userController->getNew();
 $hasSub = $userController->getSubscription() > 0;
 
 Util::head($user['username']);
