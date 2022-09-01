@@ -7,5 +7,8 @@ ini_set('session.cookie_samesite', 'Lax');
 ini_set('session.cookie_lifetime', 0);
 
 require_once 'core/Config.php';
-require_once 'controllers/UtilController.php';
-require_once 'controllers/UserController.php';
+require_once 'helpers/UtilHelper.php';
+require_once 'helpers/SessionHelper.php';
+
+Session::init();
+$user = $_SESSION;

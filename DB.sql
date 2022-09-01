@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 COMMIT;
 
 INSERT INTO `users` (`uid`, `username`, `password`, `hwid`, `admin`, `sub`,`banned`, `invitedBy`, `createdAt`) VALUES
-(1, 'admin', '$2y$10$7wOzYc.AXpXc1nE/b0IqLOsP2w1cK9LZXDUi6hoSyuWBDj3DoBjOK', NULL, 1, '2020-10-29', 0, '', '2020-10-20 08:29:37');
+(1, 'admin', '$2y$10$7wOzYc.AXpXc1nE/b0IqLOsP2w1cK9LZXDUi6hoSyuWBDj3DoBjOK', NULL, 1, '2020-10-29', 0, 'admin', '2020-10-20 08:29:37');
 COMMIT;
 
 INSERT INTO `cheat` (`status`, `version`, `maintenance`) VALUES
