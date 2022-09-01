@@ -11,7 +11,7 @@ $userController = new userController;
 $cheatData = (new cheatController)->getCheatData();
 
 $userCount = $userController->getCount();
-$newestUser = $userController->getnew();
+$newestUser = $userController->getNew();
 $hasSub = $userController->getSubscription() > 0;
 
 Util::head($user['username']);
