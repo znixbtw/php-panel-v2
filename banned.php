@@ -2,10 +2,8 @@
 
 require_once 'app/require.php';
 
-Session::init();
-
-Util::userCheck();
-Util::banCheck();
+Util::isUser();
+Util::isBanned();
 
 $user = new userController;
 $username = Session::get("username");
