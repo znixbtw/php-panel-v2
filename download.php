@@ -3,8 +3,6 @@
 require_once './app/require.php';
 require_once './app/controllers/cheatController.php';
 
-Session::init();
-
 Util::userCheck();
 Util::banCheck();
 
