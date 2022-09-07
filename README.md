@@ -29,6 +29,16 @@
 
 ---
 
+### Installation 
+* Recommended PHP 8.0!
+* Change DB info in core/Database.php <br>
+* Import DB.sql file <br>
+* Change Site info in core/Config.php
+
+Installation Guide: https://www.youtube.com/watch?v=DwzP4ZSHwHw
+
+---
+
 ### Features
 ###### AUTH
 * Login
@@ -51,30 +61,6 @@
 * Sends user data in JSON format on call
 	* Usage: `api.php?user={username}&pass={password}&hwid={hwid}&key={key}`
 	* Example: `api.php?user=admin&pass=YWRtaW4=&hwid=aHdpZA==&key=yes`
-
----
-
-### Functions 
-###### List of functions and methods which you should know, to modify
-* SessionController
-	* isLogged - `Returns true if user is logged, else false.` 
-	* isAdmin - `Returns true if user is admin, else false.`
-	* isBanned - `Returns true if user is banned, else false.`
-* UtilController
-	* navbar - `Calls include/navbar.inc.php in the page.`
-	* footer - `Calls include/footer.inc.php in the page.`
-	* head - `Calls include/head.inc.php in the page. Pass page title into this.` *Requires 1 parameter.*
-	* redirect - `Redirects to paramter provided.` *Requires 1 parameter.*
-	* display - `Sanitzes the parameter with htmlspecialchars.` *Requires 1 parameter.*
-
----
-
-### Installation 
-* Change DB info in core/Database.php <br>
-* Import DB.sql file <br>
-* Change Site info in core/Config.php
-
-Installation Guide: https://www.youtube.com/watch?v=DwzP4ZSHwHw
 
 ---
 
