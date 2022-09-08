@@ -1,10 +1,11 @@
 <?php
 
 require_once './app/require.php';
-require_once './app/controllers/userController.php';
 
 Util::isUser();
 Util::isBanned();
+
+require_once './app/controllers/userController.php';
 
 $userController = new userController;
 
@@ -20,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 $sub = $userController->getSubscription();
+
 Util::head($user['username']);
 Util::navbar();
 
