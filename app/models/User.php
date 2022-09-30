@@ -58,7 +58,7 @@ class User extends Database
     public function updatePassword($currentPassword, $hashedPassword, $username): string
     {
         // Get user by username
-        $row = $this->getUserByUsername($username);
+        $row = $this->getByUsername($username);
         // Fetch current password from database
         if (password_verify($currentPassword, $row->password)) {
             $this->prepare('UPDATE `users` SET `password` = ? WHERE `username` = ?');
