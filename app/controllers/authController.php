@@ -33,14 +33,14 @@ class authController
         }
 
         // Check if username exists
-        $userExists = $User->getUserByUsername($username);
+        $userExists = $User->getByUsername($username);
         if ($userExists) {
             return "Username already exists, try another.";
         }
 
         // Hashing the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-        $response = $User->register($username, $hashedPassword, $invCode);
+        $response = $User->register($username, $hashedPassword, $code);
 
         return ($response) ? 'Registered successfully.' : 'Something went wrong.';
     }
