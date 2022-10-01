@@ -2,14 +2,15 @@
 
 require_once './app/require.php';
 require_once './app/controllers/cheatController.php';
+require_once './app/controllers/userController.php';
 
-Util::userCheck();
-Util::banCheck();
+Util::isUser();
+Util::isBanned();
 
 $user = new userController;
 $cheat = new cheatController;
 
-if ($user->getSubStatus() <= 0) {
+if ($user->getSubscription() <= 0) {
     Util::redirect('/');
 }
 
