@@ -2,9 +2,9 @@
 header("Content-Type: application/json; charset=UTF-8");
 
 require_once 'app/require.php';
-require_once 'app/controllers/ApiController.php';
+require_once 'app/controllers/apiController.php';
 
-$apiController = new ApiController;
+$apiController = new apiController;
 
 // Check data
 if (empty($_GET['user']) || empty($_GET['pass']) || empty($_GET['hwid']) || empty($_GET['key'])) {
