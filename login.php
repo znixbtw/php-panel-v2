@@ -4,10 +4,6 @@ include './app/controllers/authController.php';
 
 Util::isUser();
 
-if (Session::get('login')) {
-    Util::redirect('/');
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     $response = (new authController())->login($_POST);
 }
