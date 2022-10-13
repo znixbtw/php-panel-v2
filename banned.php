@@ -1,6 +1,7 @@
 <?php
 
 require_once 'app/require.php';
+require_once 'app/controllers/userController.php';
 
 Util::isUser();
 Util::isBanned();
