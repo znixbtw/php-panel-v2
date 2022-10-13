@@ -50,6 +50,12 @@ class Util
                 Util::redirect('/login.php');
             }
         }
+        // Prevents logged in users to access login or register
+        if (Session::get('login')) {
+            if (basename($_SERVER['PHP_SELF']) == 'login.php' || basename($_SERVER['PHP_SELF']) == 'register.php') {
+                Util::redirect('/');
+            }
+        }
     }
 
     public static function redirect(string $location): void
