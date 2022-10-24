@@ -13,10 +13,10 @@ class Invite extends Database
 //        return $this->statement->fetchOne();
 //    }
 
-    public function getCode($invCode): bool|string
+    public function getCode($invCode): bool|stdClass
     {
         $this->prepare('SELECT * FROM `invites` WHERE `code` = ? LIMIT 1');
         $this->statement->execute([$invCode]);
-        return $this->statement->fetchOne();
+        return $this->statement->fetch();
     }
 }
