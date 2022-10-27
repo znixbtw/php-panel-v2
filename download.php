@@ -1,11 +1,11 @@
 <?php
 
 require_once './app/require.php';
-require_once './app/controllers/cheatController.php';
 
 Util::isUser();
 Util::isBanned();
 
+require_once './app/controllers/cheatController.php';
 require_once './app/controllers/userController.php';
 
 $user = new userController;

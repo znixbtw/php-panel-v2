@@ -1,10 +1,10 @@
 <?php
-
 require_once '../app/require.php';
-require_once '../app/controllers/adminController.php';
-require_once '../app/controllers/cheatController.php';
 
 Util::isAdmin();
+
+require_once '../app/controllers/adminController.php';
+require_once '../app/controllers/cheatController.php';
 
 $cheat = new cheatController;
 $admin = new adminController;
