@@ -1,10 +1,10 @@
 <?php
 
 require_once '../app/require.php';
-require_once '../app/controllers/adminController.php';
-require_once '../app/controllers/userController.php';
 
 Util::isAdmin();
+
+require_once '../app/controllers/adminController.php';
 
 $admin = new adminController;
 $invList = $admin->getInvCodeArray();
