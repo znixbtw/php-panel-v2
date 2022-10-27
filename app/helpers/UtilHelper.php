@@ -80,7 +80,7 @@ class Util
     public static function isAdmin(): void
     {
         if (!Session::get('admin')) {
-            Util::redirect('/../../');
+            Util::redirect('/../');
         }
     }
 }
