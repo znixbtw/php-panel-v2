@@ -1,8 +1,9 @@
 <?php
 require_once '../app/require.php';
-require_once '../app/controllers/adminController.php';
 
 Util::isAdmin();
+
+require_once '../app/controllers/adminController.php';
 
 $admin = new adminController;
 $subList = $admin->getSubCodeArray();
