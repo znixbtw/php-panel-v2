@@ -50,9 +50,6 @@ class Api extends Database
 								'admin' => $row->admin,
 								'sub' => $row->sub,
 								'createdAt' => $row->createdAt,
-								'session' => array(
-									'token' => 'test',
-								),
 							),
 						);
 					} else {
