@@ -5,7 +5,7 @@ require_once __DIR__.'/../core/Database.php';
 
 class Api extends Database
 {
-    protected function userAPI($username, $password, $hwid) {
+	protected function userAPI($username, $password, $hwid) {
 
 		// fetch username
 		$this->prepare('SELECT * FROM `users` WHERE `username` = ?');
@@ -20,25 +20,50 @@ class Api extends Database
 			// If password is correct
 			if (password_verify($password, $hashedPassword)) {
 
+				// If user's hwid is NULL
 				if ($row->hwid === NULL) {
 
 					$this->prepare('UPDATE `users` SET `hwid` = ? WHERE `username` = ?');
 					$this->statement->execute([$hwid, $username]);
 
+					return array('status' => 'failed', 'error' => 'Restart your loader');
+				}
+
+				if ($row->hwid === $hwid) {
+
+					$has_sub = false;
+
+					if (strtotime($row->sub) > strtotime('now')) {
+						$has_sub = true;
+						} else {
+						$has_sub = false;
+					}
+
+					if ($has_sub) {
+						$response = array(
+							'status' => 'success', 
+							'user' => array(
+								'uid' => $row->uid,
+								'username' => $row->username,
+								'hwid' => $row->hwid,
+								'banned' => $row->banned,
+								'admin' => $row->admin,
+								'sub' => $row->sub,
+								'createdAt' => $row->createdAt,
+								'session' => array(
+									'token' => 'test',
+								),
+							),
+						);
+					} else {
+						// No subscription, everything else is correct
+						$response = array('status' => 'failed', 'error' => 'Invalid subscription');
+					}
+				} else {
+					// Wrong hwid, user and pass are correct
+					$response = array('status' => 'failed', 'error' => 'Invalid hwid');
 				}
 				
-				$response = array(
-					'status' => 'success', 
-					'uid' => $row->uid,
-					'username' => $row->username,
-					'hwid' => $row->hwid,
-					'admin' => $row->admin,
-					'sub' => $row->sub,
-					'banned' => $row->banned,
-					'invitedBy' => $row->invitedBy,
-					'createdAt' => $row->createdAt
-				);
-
 			} else {
 
 				// Wrong pass, user exists
