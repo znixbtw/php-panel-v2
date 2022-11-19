@@ -74,13 +74,18 @@ class Util
                 Util::redirect('/banned.php');
             }
         }
+        if (!Session::get('banned')) {
+            if (basename($_SERVER['PHP_SELF']) == 'banned.php') {
+                Util::redirect('/');
+            }
+        }
     }
 
     // Check is user is admin
     public static function isAdmin(): void
     {
         if (!Session::get('admin')) {
-            Util::redirect(__DIR__.'/../index.php');
+            Util::redirect('../');
         }
     }
 }
