@@ -66,7 +66,7 @@ Installation Guide: https://www.youtube.com/watch?v=DwzP4ZSHwHw
 | `user`    | `string` | **Required**. Username              |
 | `pass`    | `string` | **Required**. Password              |
 | `hwid`    | `string` | **Required**. Hwid                  |
-| `key`     | `string`  | **Required**. Key                    |
+| `key`     | `string` | **Required**. Key                  |
 ---
 
 ### Credits
