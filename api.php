@@ -2,28 +2,24 @@
 header("Content-Type: application/json; charset=UTF-8");
 
 require_once 'app/require.php';
-require_once 'app/controllers/apiController.php';
+require_once 'app/controllers/ApiController.php';
 
-$apiController = new apiController;
+$apiController = new ApiController;
 
 // Check data
-if (empty($_GET['user']) || empty($_GET['pass']) || empty($_GET['hwid']) || empty($_GET['key'])) {
+if (empty($_POST['user']) || empty($_POST['pass']) || empty($_POST['hwid']) || empty($_POST['key'])) {
 	
 	$response = array('status' => 'failed', 'error' => 'Missing arguments');
 
 } else {
 
-	$username = $_GET['user'];
-	$passwordHash = $_GET['pass'];
-	$hwidHash = $_GET['hwid'];
-	$key = $_GET['key'];
+	$username = $_POST['user'];
+	$password = $_POST['pass'];
+	$hwid = $_POST['hwid'];
+	$key = $_POST['key'];
 
 	if (API_KEY === $key) {
 
-		// decode
-		$password = base64_decode($passwordHash);
-		$hwid = base64_decode($hwidHash);
-		
 		$response = $apiController->getUserInfo($username, $password, $hwid);
 
 	} else {
