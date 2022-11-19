@@ -57,11 +57,16 @@ Installation Guide: https://www.youtube.com/watch?v=DwzP4ZSHwHw
 * Set maintenance/non-maintenance
 * Set cheat version
 ###### API
-###### Note: User pass and hwid has to be sent in base64 format.
 * Sends user data in JSON format on call
-	* Usage: `api.php?user={username}&pass={password}&hwid={hwid}&key={key}`
-	* Example: `api.php?user=admin&pass=YWRtaW4=&hwid=aHdpZA==&key=yes`
-
+```
+ POST /api.php
+```
+| Parameter | Type     | Description                         |
+| :-------- | :------- | :---------------------------------- |
+| `user`    | `string` | **Required**. Username              |
+| `pass`    | `string` | **Required**. Password              |
+| `hwid`    | `string` | **Required**. Hwid                  |
+| `key`     | `string` | **Required**. Key                  |
 ---
 
 ### Credits
